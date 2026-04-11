@@ -1,0 +1,36 @@
+# version: '2'
+services:
+    postgres:
+        image: postgres:15.2
+        container_name: inventory_project_rds
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+        ports:
+            - 5433:5432
+        networks:
+            vpcbr:
+                ipv4_address: 172.18.0.10
+        volumes:
+           - ./postgres_data:/var/lib/postgresql/data
+           
+    inventory_project:
+        build: inventory_project/
+        container_name: inventory_project
+        env_file:
+            - ./envs/inventory_project.env
+        ports:
+            - 9000:9000
+        networks:
+            vpcbr:
+                ipv4_address: 172.18.0.20
+        volumes:
+            - ./inventory_project:/app
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.18.0.0/16
+         gateway: 172.18.0.1
