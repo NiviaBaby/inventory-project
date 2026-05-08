@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.views.generic import TemplateView
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.views import LoginView as AuthLoginView
 
 class LoginView(TokenObtainPairView):
@@ -11,3 +13,12 @@ class LoginView(TokenObtainPairView):
 
 class WebLoginView(AuthLoginView):
     template_name = 'login.html'
+
+class HomePageView(TemplateView):
+    template_name = 'home.html'
+
+# Placeholder API endpoint for homepage data
+class HomePageAPI(APIView):
+    def get(self, request):
+        return Response({"message": "Welcome to the Inventory Home Page"})
+# Home page placeholders

@@ -79,7 +79,20 @@
             <label for="id_password">Password:</label>
             {{ form.password }}
 
-            <button type="submit">Login</button>
+            <button type="submit" onclick="handleLogin(event)">Login</button>
+<script>
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.querySelector('[name="username"]').value;
+  const password = document.querySelector('[name="password"]').value;
+  if (!username || !password) {
+    alert('Please enter both username and password.');
+    return;
+  }
+  // Submit the form after validation
+  event.target.form.submit();
+}
+</script>
         </form>
     </div>
 </body>
